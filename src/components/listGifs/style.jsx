@@ -7,4 +7,5 @@ export const Container = styled.div`
   padding:3rem;
   background-color:hsl(120,20%,5%);
   margin:3rem;
+  min-height:100vh;
 `;

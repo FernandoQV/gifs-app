@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useTrends from "hooks/useTrends";
-import Gif from "components/gif/Gif"
+import Gif from "components/gif/Gif";
 import { Container } from "components/listGifs/style";
 import Loading from "components/loading/loading";
 

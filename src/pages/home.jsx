@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import Nav from "components/nav/Nav";
 import GifTrends from "components/trends/gifTrends";
-import { TrendsToday } from "components/trendsToday/trendsToday";
-import { getTrendsToday } from "services/getTrendsToday";
+/* import { TrendsToday } from "components/trendsToday/trendsToday";
+ */import { getTrendsToday } from "services/getTrendsToday";
+import { LazyTrendsToday } from "components/trendsToday/trendsToday";
 
 const Home = () => {
-  const [categories, setCategories] = useState([])
-  useEffect(() => {
-      getTrendsToday()
-      .then(gifs=>setCategories(gifs))
-  }, [])
+  
   const [keyword, setKeyword] = useState("");
   const pushLocation = useLocation()[1];
   const handleSumit = (event) => {
@@ -30,9 +27,8 @@ const Home = () => {
           <h1>Trends Gifs</h1>
           <Nav />
         </section>
-
         <GifTrends/>
-        <TrendsToday categories={categories}/>
+        <LazyTrendsToday/>
       </div>
     </>
   );
