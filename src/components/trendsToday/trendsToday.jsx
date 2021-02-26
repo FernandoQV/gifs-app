@@ -26,19 +26,25 @@ export const LazyTrendsToday=()=>{
   //el useref es similar al useState, lo diferente es que el useRef no renderiza el componente cunado se cambia su valor y se usa mas cuando se tiene que hacer una referencia a un elemento del DOM
   const elementRef = useRef()
   useEffect(() => {
-    const onChange=(entries)=>{
+    let observer
+    const onChange=(entries,observer)=>{
       const elemt=entries[0]
       if(elemt.isIntersecting){
-        console.log('intersectado');
         setShow(true)
-      }else{
-        console.log('no intersectado');
+        observer.disconnect()
       }
     }
-    const observer=new IntersectionObserver(onChange,{
-      rootMargin:'100px'
+    Promise.resolve(
+      typeof IntersectionObserver != 'undefined'
+      ? IntersectionObserver
+      :import('intersection-observer')
+    ).then(()=>{
+       observer=new IntersectionObserver(onChange,{
+        rootMargin:'100px'
+      })
+      observer.observe(elementRef.current)
     })
-    observer.observe(elementRef.current)
+    return ()=>observer.disconnect()
   })
 
   return <div ref={elementRef}>{
