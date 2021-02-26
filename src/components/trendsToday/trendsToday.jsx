@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getTrendsToday } from "services/getTrendsToday";
 import { Link } from "wouter";
 
@@ -23,6 +23,8 @@ const TrendsToday = () => {
 
 export const LazyTrendsToday=()=>{
   const [show, setShow] = useState(false)
+  //el useref es similar al useState, lo diferente es que el useRef no renderiza el componente cunado se cambia su valor y se usa mas cuando se tiene que hacer una referencia a un elemento del DOM
+  const elementRef = useRef()
   useEffect(() => {
     const onChange=(entries)=>{
       const elemt=entries[0]
@@ -36,10 +38,10 @@ export const LazyTrendsToday=()=>{
     const observer=new IntersectionObserver(onChange,{
       rootMargin:'100px'
     })
-    observer.observe(document.getElementById('Lazy'))
+    observer.observe(elementRef.current)
   })
 
-  return <div id='Lazy'>{
+  return <div ref={elementRef}>{
     show?<TrendsToday/>:null
   }</div>
 }
