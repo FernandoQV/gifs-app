@@ -5,11 +5,10 @@ import { Link } from "wouter";
 import { Container } from "./style";
 
 const TrendsToday = () => {
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
-      getTrendsToday()
-      .then(gifs=>setCategories(gifs))
-  }, [])
+    getTrendsToday().then((gifs) => setCategories(gifs));
+  },[]);
   return (
     <Container>
       {categories.map((categorie, index) => (
@@ -20,34 +19,33 @@ const TrendsToday = () => {
     </Container>
   );
 };
-
-export const LazyTrendsToday=()=>{
-  const [show, setShow] = useState(false)
-  //el useref es similar al useState, lo diferente es que el useRef no renderiza el componente cunado se cambia su valor y se usa mas cuando se tiene que hacer una referencia a un elemento del DOM
-  const elementRef = useRef()
+const useNearScreen = () => {
+  const [isNearScreen, setIsNearScreen] = useState(false);
+  const fromRef = useRef();
   useEffect(() => {
-    let observer
-    const onChange=(entries,observer)=>{
-      const elemt=entries[0]
-      if(elemt.isIntersecting){
-        setShow(true)
+    let observer;
+    const onChange = (entries,observer) => {
+      const elemt = entries[0];
+      if (elemt.isIntersecting) {
+        setIsNearScreen(true)
         observer.disconnect()
       }
-    }
+    };
     Promise.resolve(
-      typeof IntersectionObserver != 'undefined'
-      ? IntersectionObserver
-      :import('intersection-observer')
-    ).then(()=>{
-       observer=new IntersectionObserver(onChange,{
-        rootMargin:'100px'
-      })
-      observer.observe(elementRef.current)
-    })
-    return ()=>observer.disconnect()
-  })
-
-  return <div ref={elementRef}>{
-    show?<TrendsToday/>:null
-  }</div>
-}
+      typeof IntersectionObserver != "undefined"
+        ? IntersectionObserver
+        : import("intersection-observer")
+    ).then(() => {
+      observer = new IntersectionObserver(onChange, {
+        rootMargin: "150px",
+      });
+      observer.observe(fromRef.current);
+    });
+    return ()=> observer && observer.disconnect()
+  });
+  return { isNearScreen, fromRef };
+};
+export const LazyTrendsToday = () => {
+  const { isNearScreen, fromRef } = useNearScreen();
+  return <div ref={fromRef} className='divlLAzy'>{isNearScreen ? <TrendsToday /> : null}</div>;
+};
