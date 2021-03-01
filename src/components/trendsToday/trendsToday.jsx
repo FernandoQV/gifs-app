@@ -10,7 +10,7 @@ export const LazyTrendsToday = () => {
   const { isNearScreen, fromRef } = useNearScreen({ distance: "100px" });
   return (
     <div ref={fromRef} className="divlLAzy">
-      <Suspense fallback={null}>
+      <Suspense fallback={<h3>Esta en espera</h3>}>
         {isNearScreen ? <TrendsCategories /> : null}
       </Suspense>
     </div>

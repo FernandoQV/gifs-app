@@ -9,10 +9,10 @@ export const useNearScreen = ({distance='100px'}={}) => {
         const elemt = entries[0];
         if (elemt.isIntersecting) {
           setIsNearScreen(true)
-          console.log('si esta inter');
+          //se podria colocar observer.unobserver(elemt) para dejar de observar elemt y poder seguir utilizando el observer,pero para este componente es mejor desconectarlo
           observer.disconnect()
         }else{
-            console.log('no esta');
+            
         }
       };
       Promise.resolve(
