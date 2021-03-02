@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ListGifs from "components/listGifs/ListGifs";
 import Nav from "components/nav/Nav";
 import useGifs from "hooks/useGifs";
@@ -8,12 +8,20 @@ import { useNearScreen } from "hooks/useNearScreen";
 const SearchGifs = ({ params }) => {
   const { keyword } = params;
   const externalRef=useRef()
-  const {isNearScreen,fromRef}=useNearScreen({externalRef})
   const {setPage,gifsGlobales,loading}=useGifs({keyword})
-  const handleNextPage=()=>{
+  const {isNearScreen}=useNearScreen({externalRef:loading?null:externalRef})/* para asegurrnos que se pase el parametro de externalRef solo cuando deje de estar cargando el componente */
+  console.log(isNearScreen);
+ 
+const handleNextPage=()=>console.log('next page');
+
+useEffect(() => {
+  if(isNearScreen) handleNextPage() 
+})
+
+  /*  const handleNextPage=()=>{
     //cambiando el estado con funcion es para cuando no sabemos o tengamos que importar el valor en si , en este caso seria page
         setPage(p=>p+1)
-      }
+      } */
   return (
     <div>
       <section>

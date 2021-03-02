@@ -6,7 +6,7 @@ export const useNearScreen = ({distance='100px',externalRef}={}) => {
     useEffect(() => {
       let observer;
       const elm=externalRef?externalRef.current:fromRef.current
-      console.log(elm);
+     
       const onChange = (entries,observer) => {
         const elemt = entries[0];
         if (elemt.isIntersecting) {
@@ -23,7 +23,7 @@ export const useNearScreen = ({distance='100px',externalRef}={}) => {
         observer = new IntersectionObserver(onChange, {
           rootMargin: distance,
         });
-        observer.observe(elm);
+       elm && observer.observe(elm);
       });
       return ()=> observer && observer.disconnect()
     });
