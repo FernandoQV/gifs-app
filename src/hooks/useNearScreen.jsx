@@ -1,6 +1,6 @@
 import { useState,useEffect,useRef } from 'react'
 
-export const useNearScreen = ({distance='100px',externalRef}={}) => {
+export const useNearScreen = ({distance='100px',externalRef,once=true}={}) => {
     const [isNearScreen, setIsNearScreen] = useState(false);
     const fromRef = useRef();
     useEffect(() => {
@@ -12,7 +12,9 @@ export const useNearScreen = ({distance='100px',externalRef}={}) => {
         if (elemt.isIntersecting) {
           setIsNearScreen(true)
           //se podria colocar observer.unobserver(elemt) para dejar de observar elemt y poder seguir utilizando el observer,pero para este componente es mejor desconectarlo
-          observer.disconnect()
+          once && observer.disconnect()
+        }else{
+          !once && setIsNearScreen(false)
         }
       };
       Promise.resolve(
