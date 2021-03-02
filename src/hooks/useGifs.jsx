@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import ContextGifs from "context/contextGifs";
 import getGifs from "services/getGifs";
-import { flushSync } from "react-dom";
 
 const useGifs = ({ keyword }) => {
   const [loading, setLoading] = useState(false);
