@@ -1,11 +1,16 @@
-import React, { useContext } from 'react'
-import Gif from '../components/gif/Gif'
-import ContextGifs from 'context/contextGifs'
+import React from "react";
+import Gif from "../components/gif/Gif";
 
-const GifDetails = ({params}) => {
-   const {gifsGlobales}=useContext(ContextGifs)
-   const gif=gifsGlobales.find(singleGif=>singleGif.id===params.id)
-    return <Gif {...gif}/>
-}
+import useGifs from "hooks/useGifs";
+import useSingleGif from "hooks/useSingleGif";
+import { Redirect } from "wouter";
 
-export default GifDetails
+const GifDetails = ({ params }) => {
+  const { id } = params;
+  const { gifSingle, loading, isError } = useSingleGif({ id });
+  console.log(gifSingle);
+  if (isError) return <Redirect to="/404" />;
+  return loading ? <h4>Espera cargando</h4> : <Gif {...gifSingle} />;
+};
+
+export default GifDetails;
