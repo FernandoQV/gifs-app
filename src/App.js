@@ -12,6 +12,7 @@ const App = () => {
       <Route path="/" component={Home} />
       <Route path="/gifs/:keyword" component={SearchGifsLazy} />
       <Route path="/gif/:id" component={GifDetailsLazy} />
+      <Route path='/404' component={()=><h1>No se encontro lo que buscabas...lo siento!!! :(</h1>}/>
       </Suspense>
     </GifsProvider>
   );

@@ -18,7 +18,7 @@ const useSingleGif = ({id}) => {
             setLoading(false)
             setIsError(true)
         })
-        
+    
     },[id])
     return {gifSingle,loading,isError}
 }
