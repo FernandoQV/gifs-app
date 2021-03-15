@@ -11,11 +11,13 @@ const Gif = ({ id, title, url }) => {
   };
   return (
     <Container>
-      <img onClick={handleIdGif} src={url} alt={title} />
+      <img onClick={handleIdGif} style={{cursor:'pointer'}} src={url} alt={title} />
       <h4>{title}</h4>
       <h5>{id}</h5>
     </Container>
   );
 };
 
-export default Gif;
+export default React.memo(Gif,(prevProps,nextProps)=>{
+  return prevProps.id===nextProps.id
+});

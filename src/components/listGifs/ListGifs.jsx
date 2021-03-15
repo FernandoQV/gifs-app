@@ -14,4 +14,4 @@ const ListGifs = ({ gifs,loading }) => {
     </Container>
   );
 };
-export default ListGifs;
+export default React.memo(ListGifs);

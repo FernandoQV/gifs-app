@@ -9,6 +9,7 @@ text-align:center;
 padding:1rem;
 border-radius:15px;
 box-shadow:.5px 1px 1px 0px #fff;
+max-height:100vh;
 img{
     /* width:200px;
     object-fit:cover; */
