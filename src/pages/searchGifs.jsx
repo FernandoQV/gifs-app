@@ -4,6 +4,7 @@ import Nav from "components/nav/Nav";
 import useGifs from "hooks/useGifs";
 import { useNearScreen } from "hooks/useNearScreen";
 import debounce from "just-debounce-it";
+import { SEO } from "components/SEO/SEO";
 
 const SearchGifs = ({ params }) => {
   const { keyword } = params;
@@ -28,26 +29,29 @@ const SearchGifs = ({ params }) => {
     setPage((p) => p + 1);
   }; */
   return (
-    <div>
-      <section>
-        <Nav />
-        <h1>El gif encontrado es: {decodeURI(keyword)}</h1>
-      </section>
-      <ListGifs gifs={gifsGlobales} loading={loading} />
-      <div id="visor" className="visor" ref={externalRef}></div>
-      {/* el visor sirve para que nos indique cuando estamos al ultimo del contenedor */}
-      <button
-        style={{
-          borderRadius: "5px",
-          padding: ".5rem",
-          color: "#fffdfd",
-          background:
-            "linear-gradient(to left,hsl(89,75%,30%),hsl(89,95%,10%))",
-        }}
-      >
-        Get next Page
-      </button>
-    </div>
+    <>
+    <SEO title={'Giphy | Buscados'} description={'Gifs, Giphy,Search,Trends'}/>
+      <div>
+        <section>
+          <Nav />
+          <h1>El gif encontrado es: {decodeURI(keyword)}</h1>
+        </section>
+        <ListGifs gifs={gifsGlobales} loading={loading} />
+        <div id="visor" className="visor" ref={externalRef}></div>
+        {/* el visor sirve para que nos indique cuando estamos al ultimo del contenedor */}
+        <button
+          style={{
+            borderRadius: "5px",
+            padding: ".5rem",
+            color: "#fffdfd",
+            background:
+              "linear-gradient(to left,hsl(89,75%,30%),hsl(89,95%,10%))",
+          }}
+        >
+          Get next Page
+        </button>
+      </div>
+    </>
   );
 };
 
